@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cooking Recipe Solver</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef1f7;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .box {
+            background: #f7f9fc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .box label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 80px;
+            padding: 8px;
+            margin-left: 6px;
+            font-size: 18px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        #resetBtn {
+            background: #ef4444;
+            margin-top: 10px;
+        }
+
+        #resetBtn:hover {
+            background: #dc2626;
+        }
+
+        #result {
+            margin-top: 25px;
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            color: #111;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h2>100% Cooking Recipe Solver</h2>
+
+    <div class="box">
+        <label>Cook 1 (0-0-0):</label>
+        <input id="p1" type="number" value="" placeholder="%" />
+    </div>
+
+    <div class="box">
+        <label>Cook 2 (10-0-0):</label>
+        <input id="p2" type="number" value="" placeholder="%" />
+    </div>
+
+    <div class="box">
+        <label>Cook 3 (0-10-0):</label>
+        <input id="p3" type="number" value="" placeholder="%" />
+    </div>
+
+    <div class="box">
+        <label>Cook 4 (0-0-10):</label>
+        <input id="p4" type="number" value="" placeholder="%" />
+    </div>
+
+    <button onclick="solve()">Solve Recipe</button>
+    <button id="resetBtn" onclick="resetForm()">Reset</button>
+
+    <div id="result"></div>
+
+    <div class="footer">
+        Brought to you by M
+    </div>
+
+</div>
+
+<script>
+function solve() {
+    let p1 = parseInt(document.getElementById("p1").value);
+    let p2 = parseInt(document.getElementById("p2").value);
+    let p3 = parseInt(document.getElementById("p3").value);
+    let p4 = parseInt(document.getElementById("p4").value);
+
+    if (isNaN(p1) || isNaN(p2) || isNaN(p3) || isNaN(p4)) {
+        document.getElementById("result").innerHTML = "❗ Please enter all 4 values.";
+        return;
+    }
+
+    const D1 = 100 - p1; // 0-0-0
+    const D2 = 100 - p2; // 10-0-0
+    const D3 = 100 - p3; // 0-10-0
+    const D4 = 100 - p4; // 0-0-10
+
+    const A = Math.round((10 - (D2 - D1) / 3) / 2);
+    const B = Math.round((10 - (D3 - D1) / 3) / 2);
+    const C = Math.round((10 - (D4 - D1) / 3) / 2);
+
+    document.getElementById("result").innerHTML =
+        "🔑 100% Recipe:<br><br><span style='font-size:30px;'>" + A + " - " + B + " - " + C + "</span>";
+}
+
+function resetForm() {
+    document.getElementById("p1").value = "";
+    document.getElementById("p2").value = "";
+    document.getElementById("p3").value = "";
+    document.getElementById("p4").value = "";
+    document.getElementById("result").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
